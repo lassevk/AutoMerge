@@ -33,14 +33,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DiffLib">
-      <HintPath>..\DiffLib.dll</HintPath>
+    <Reference Include="DiffLib, Version=2017.7.26.1241, Culture=neutral, PublicKeyToken=9e2fabf3af85dba9, processorArchitecture=MSIL">
+      <HintPath>..\packages\DiffLib.2017.7.26.1241\lib\net46\DiffLib.dll</HintPath>
     </Reference>
-    <Reference Include="JetBrains.Annotations, Version=10.4.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
-      <HintPath>..\packages\JetBrains.Annotations.10.4.0\lib\net\JetBrains.Annotations.dll</HintPath>
+    <Reference Include="JetBrains.Annotations, Version=11.0.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
+      <HintPath>..\packages\JetBrains.Annotations.11.0.0\lib\net20\JetBrains.Annotations.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ValueTuple, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.3.1\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,12 +52,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Ensurances.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resolvers\DotNet\VisualStudio\CSharpCodeConflictResolver.cs" />
     <Compile Include="Resolvers\DotNet\VisualStudio\CSharpProjectConflictResolver.cs" />
     <Compile Include="IConflictResolver.cs" />
     <Compile Include="ResolverFactory.cs" />
     <Compile Include="ResolverForExtensionAttribute.cs" />
+    <Compile Include="Resolvers\MethodResolver.cs" />
+    <Compile Include="Resolvers\MethodResolverDelegate.cs" />
+    <Compile Include="Resolvers\TextBasedConflictResolver.cs" />
     <Compile Include="Resolvers\TextFileConflictResolver.cs" />
   </ItemGroup>
   <ItemGroup>
