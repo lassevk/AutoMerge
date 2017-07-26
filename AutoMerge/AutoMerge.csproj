@@ -63,6 +63,7 @@
     <Compile Include="FileResolverFactory.cs" />
     <Compile Include="IFileRelatedConflictResolver.cs" />
     <Compile Include="IFragmentConflictResolver.cs" />
+    <Compile Include="Resolvers\DotNet\VisualStudio\Fragments\CSharpUsingStatementsInTheSamePlaceFragmentConflictResolver.cs" />
     <Compile Include="Resolvers\MethodResolver.cs" />
     <Compile Include="Resolvers\MethodResolverDelegate.cs" />
     <Compile Include="Resolvers\TextBasedFileConflictResolver.cs" />
@@ -73,5 +74,6 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
