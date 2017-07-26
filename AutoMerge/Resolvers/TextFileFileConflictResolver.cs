@@ -6,9 +6,7 @@ using DiffLib;
 
 namespace AutoMerge.Resolvers
 {
-    [ResolverForExtension(".txt")]
-    [Description(".txt dummy resolver")]
-    public class TextFileConflictResolver : IConflictResolver
+    public class TextFileFileConflictResolver : IFileConflictResolver
     {
         public bool TryResolve(string commonBaseFilename, string leftFilename, string rightFilename, string mergedFilename)
         {
@@ -26,5 +24,8 @@ namespace AutoMerge.Resolvers
                 return false;
             }
         }
+
+        public string[] SupportedExtensions => new[] { ".txt" };
+        public string Description => ".txt dummy resolver";
     }
 }

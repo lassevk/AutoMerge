@@ -53,17 +53,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Ensurances.cs" />
+    <Compile Include="FragmentResolverFactory.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resolvers\DotNet\VisualStudio\CSharpCodeConflictResolver.cs" />
-    <Compile Include="Resolvers\DotNet\VisualStudio\CSharpProjectConflictResolver.cs" />
-    <Compile Include="IConflictResolver.cs" />
     <Compile Include="ResolverFactory.cs" />
-    <Compile Include="ResolverForExtensionAttribute.cs" />
+    <Compile Include="Resolvers\DotNet\VisualStudio\CSharpCodeFileConflictResolver.cs" />
+    <Compile Include="Resolvers\DotNet\VisualStudio\CSharpProjectFileConflictResolver.cs" />
+    <Compile Include="IFileConflictResolver.cs" />
+    <Compile Include="FileResolverFactory.cs" />
+    <Compile Include="IFileRelatedConflictResolver.cs" />
+    <Compile Include="IFragmentConflictResolver.cs" />
     <Compile Include="Resolvers\MethodResolver.cs" />
     <Compile Include="Resolvers\MethodResolverDelegate.cs" />
-    <Compile Include="Resolvers\TextBasedConflictResolver.cs" />
-    <Compile Include="Resolvers\TextFileConflictResolver.cs" />
+    <Compile Include="Resolvers\TextBasedFileConflictResolver.cs" />
+    <Compile Include="Resolvers\TextFileFileConflictResolver.cs" />
+    <Compile Include="Resolvers\TextFragmentBasedFileConflictResolver.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

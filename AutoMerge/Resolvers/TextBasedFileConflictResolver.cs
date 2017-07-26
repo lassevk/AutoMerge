@@ -6,7 +6,7 @@ using JetBrains.Annotations;
 
 namespace AutoMerge.Resolvers
 {
-    public abstract class TextBasedConflictResolver : IConflictResolver
+    public abstract class TextBasedFileConflictResolver : IFileConflictResolver
     {
         public bool TryResolve(string commonBaseFilename, string leftFilename, string rightFilename, string mergedFilename)
         {
@@ -14,7 +14,7 @@ namespace AutoMerge.Resolvers
             var leftLines = File.ReadAllLines(leftFilename);
             var rightLines = File.ReadAllLines(rightFilename);
 
-            var (success, resolvedLines) = TryResolve(commonLines, leftLines, rightLines);
+            var (success, resolvedLines) = TryResolve(Path.GetExtension(mergedFilename), commonLines, leftLines, rightLines);
             if (!success)
                 return false;
 
@@ -22,9 +22,12 @@ namespace AutoMerge.Resolvers
             return true;
         }
 
+        public abstract string[] SupportedExtensions { get; }
+        public abstract string Description { get; }
+
         [NotNull]
         protected virtual Encoding ResultEncoding => Encoding.UTF8;
 
-        protected abstract (bool success, string[] resolvedLines) TryResolve([NotNull] string[] commonLines, [NotNull] string[] leftLines, [NotNull] string[] rightLines);
+        protected abstract (bool success, string[] resolvedLines) TryResolve([NotNull] string extension, [NotNull] string[] commonLines, [NotNull] string[] leftLines, [NotNull] string[] rightLines);
     }
 }

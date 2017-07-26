@@ -1,20 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
 
 using JetBrains.Annotations;
 
 namespace AutoMerge
 {
-    public static class ResolverFactory
+    [UsedImplicitly]
+    public class ResolverFactory<T>
+        where T : IFileRelatedConflictResolver
     {
         [NotNull]
-        private static readonly Dictionary<string, List<IConflictResolver>> _Resolvers = new Dictionary<string, List<IConflictResolver>>();
+        private static readonly Dictionary<string, List<T>> _Resolvers = new Dictionary<string, List<T>>();
 
         static ResolverFactory()
         {
-            Type intf = typeof(IConflictResolver);
-            foreach (Type type in typeof(ResolverFactory).Assembly.GetTypes())
+            Type intf = typeof(T);
+            foreach (Type type in typeof(FileResolverFactory).Assembly.GetTypes())
             {
                 if (type == null)
                     continue;
@@ -23,16 +24,12 @@ namespace AutoMerge
                 if (type.IsAbstract)
                     continue;
 
-                foreach (var attr in type.GetCustomAttributes<ResolverForExtensionAttribute>(true) ?? new List<ResolverForExtensionAttribute>())
+                var instance = (T)Activator.CreateInstance(type).NotNull();
+                foreach (var extension in instance.SupportedExtensions)
                 {
-                    var extension = attr?.Extension;
-                    if (extension == null)
-                        continue;
-                    var instance = (IConflictResolver)Activator.CreateInstance(type);
-
                     if (!_Resolvers.TryGetValue(extension, out var resolversForExtension))
                     {
-                        resolversForExtension = new List<IConflictResolver>();
+                        resolversForExtension = new List<T>();
                         _Resolvers[extension] = resolversForExtension;
                     }
                     resolversForExtension.Add(instance);
@@ -41,14 +38,14 @@ namespace AutoMerge
         }
 
         [NotNull, ItemNotNull]
-        public static List<IConflictResolver> GetResolverForExtension([NotNull] string extension)
+        public static List<T> GetResolverForExtension([NotNull] string extension)
         {
             if (extension == null)
                 throw new ArgumentNullException(nameof(extension));
 
-            List<IConflictResolver> resolversForExtension;
+            List<T> resolversForExtension;
             if (!_Resolvers.TryGetValue(extension, out resolversForExtension))
-                resolversForExtension = new List<IConflictResolver>();
+                resolversForExtension = new List<T>();
             return resolversForExtension;
         }
     }
